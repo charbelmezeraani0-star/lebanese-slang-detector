@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 320px;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+    }
+    .header {
+      background: linear-gradient(135deg, #128C7E, #075e54);
+      color: white;
+      padding: 16px;
+      text-align: center;
+    }
+    .header h1 { font-size: 15px; margin-bottom: 3px; }
+    .header p { font-size: 11px; opacity: 0.8; }
+    .status-bar {
+      padding: 8px 14px;
+      font-size: 11px;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #ccc;
+    }
+    .dot.online { background: #25d366; }
+    .dot.offline { background: #f44336; }
+    .input-area {
+      padding: 12px;
+      background: #fff;
+    }
+    textarea {
+      width: 100%;
+      height: 70px;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      resize: none;
+      font-size: 13px;
+      outline: none;
+    }
+    button {
+      width: 100%;
+      margin-top: 8px;
+      padding: 10px;
+      background: #128C7E;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: bold;
+    }
+    button:disabled { background: #aaa; cursor: default; }
+    .result {
+      margin: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      display: none;
+    }
+    .result.normal { background: #e8f5e9; border-left: 4px solid #25d366; }
+    .result.flagged { background: #ffebee; border-left: 4px solid #f44336; }
+    .result-label { font-weight: bold; font-size: 14px; margin-bottom: 4px; }
+    .result-conf { font-size: 11px; color: #666; }
+    .scan-btn {
+      margin: 0 12px 12px;
+      padding: 8px;
+      background: #075e54;
+      font-size: 12px;
+    }
+    .findings {
+      max-height: 180px;
+      overflow-y: auto;
+      margin: 0 12px 12px;
+    }
+    .finding-item {
+      background: #fff;
+      border-left: 3px solid #f44336;
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    .finding-label { font-weight: bold; color: #f44336; font-size: 11px; }
+    .finding-text { color: #333; margin-top: 2px; }
+    .empty { text-align: center; color: #aaa; font-size: 12px; padding: 10px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Lebanese Slang Detector</h1>
+    <p>NLP-powered content moderation</p>
+  </div>
+
+  <div class="status-bar">
+    <div class="dot" id="statusDot"></div>
+    <span id="statusText">Checking API...</span>
+  </div>
+
+  <div class="input-area">
+    <textarea id="inputText" placeholder="Type or paste text to analyze..."></textarea>
+    <button id="analyzeBtn" onclick="analyzeText()">Analyze Text</button>
+  </div>
+
+  <div class="result" id="result">
+    <div class="result-label" id="resultLabel"></div>
+    <div class="result-conf" id="resultConf"></div>
+  </div>
+
+  <button class="scan-btn" onclick="scanPage()">🔍 Scan Current Page</button>
+  <div class="findings" id="findings"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
